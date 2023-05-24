@@ -89,20 +89,39 @@ const { email, password } = req.body;
 };
 
 
-/*
-const createUser = async(req, res) => { 
+
+const createLog = async(req, res) => { 
   try {
     console.log(req.body);
-    const user = await models.User.create(req.body);
+    const mylog = await models.Log.create(req.body);
     return res.status(201).json({
-      user
+      mylog
     });
   } 
   catch (error) {
     return res.status(500).json({error: error.message });
   }
 };
-*/
+
+const getAllLogs = async(req, res) => { 
+  console.log('getting logs');
+  try {
+    const logs = await models.Log.findAll(
+      {
+        include : []
+      }
+    );
+    return res.status(200).json({
+      logs
+    });
+  } 
+  catch (error) {
+    return res.status(500).json({error: error.message });
+  }
+
+};
+
+
 const getAllUsers = async(req, res) => { 
   console.log('getting users');
   try {
@@ -124,5 +143,7 @@ const getAllUsers = async(req, res) => {
 module.exports = {
   login,
   createUser,
-  getAllUsers
+  getAllUsers,
+  createLog,
+  getAllLogs,	
 }
